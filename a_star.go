@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"reflect"
 	"sort"
 )
@@ -15,7 +16,10 @@ func AStar(start [3][3]int, target [3][3]int) bool {
 
 	// 先访问初始结点
 	openTable = append(openTable, startGrid)
+
+	num := 0
 	for len(openTable) > 0 {
+		num++
 
 		// 升序
 		sort.Slice(openTable, func(i, j int) bool {
@@ -30,6 +34,7 @@ func AStar(start [3][3]int, target [3][3]int) bool {
 		// 到达目标棋盘则输出
 		if reflect.DeepEqual(curGrid.CurState, target) {
 			curGrid.displayPath()
+			fmt.Printf("生成的棋盘总个数：%d\n\n", num)
 			return true
 		}
 

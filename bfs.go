@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/golang-collections/collections/queue"
 	"reflect"
 )
@@ -12,10 +13,14 @@ func BFS(start [3][3]int, target [3][3]int) bool {
 
 	q := queue.New()     // 记录待访问节点
 	q.Enqueue(startGrid) // 先访问起始节点
+
+	num := 0 // 记录生成次数
 	for q.Len() > 0 {
+		num++
 		curGrid := q.Dequeue().(*Grid) // 访问队头
 		if reflect.DeepEqual(curGrid.CurState, target) {
 			curGrid.displayPath() // 到达目标则打印路径
+			fmt.Printf("生成的棋盘总个数：%d\n\n", num)
 			return true
 		}
 		// 当前节点（队头）标记为已访问
