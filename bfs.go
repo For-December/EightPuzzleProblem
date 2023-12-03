@@ -37,6 +37,7 @@ func tidyNextGrids(nextGrids []*Grid,
 	queue *queue.Queue) {
 	for _, nextGrid := range nextGrids {
 		nextGrid.Pre = curGrid
+		// visit数组中不包含 nextGrid
 		if index := inGrids(nextGrid, visited); index == -1 {
 			// 该后继节点未被访问，记录为待访问
 			queue.Enqueue(nextGrid)
