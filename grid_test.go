@@ -13,6 +13,7 @@ func TestMove(t *testing.T) {
 		{7, 8, 0},
 	}
 
+	g.displayPath()
 	assert.Equal(t, g.up().CurState[1][2], 0, "err")
 	assert.Nil(t, g.down(), "err")
 	assert.Equal(t, g.left().CurState[2][1], 0, "err")

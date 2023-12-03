@@ -14,6 +14,35 @@ type Grid struct {
 	LastAction int // 通过什么操作得到，用于优化求解
 }
 
+func (grid *Grid) displayPath() {
+	res := make([]*Grid, 0)
+	res = append(res, grid)
+
+	cur := grid.Pre
+	for cur != nil {
+		res = append(res, cur)
+		cur = cur.Pre
+	}
+
+	// 切片反转
+	for i, j := 0, len(res)-1; i < j; i, j = i+1, j-1 {
+		res[i], res[j] = res[j], res[i]
+	}
+	for _, elem := range res {
+		elem.displayCur()
+	}
+}
+
+func (grid *Grid) displayCur() {
+	for i := 0; i < 3; i++ {
+		for j := 0; j < 3; j++ {
+			print(grid.CurState[i][j], "   ")
+		}
+		println()
+	}
+	println("----------------")
+}
+
 func (grid *Grid) setBlank() {
 	y, x := grid.findPos(0)
 	grid.BlankPos = &Point{Y: y, X: x}
@@ -38,10 +67,10 @@ func (grid *Grid) move(dy int, dx int) *Grid {
 	g := &Grid{Pre: nil, CurState: grid.CurState, TarState: grid.TarState}
 	y := grid.BlankPos.Y
 	x := grid.BlankPos.X
-	// 移动空白格位置
-	t := g.CurState[y][x]
-	g.CurState[y][x] = g.CurState[y+dy][x+dx]
-	g.CurState[y+dy][x+dx] = t
+
+	// 移动空白格位置(移动相当于交换)
+	g.CurState[y][x], g.CurState[y+dy][x+dx] =
+		g.CurState[y+dy][x+dx], g.CurState[y][x]
 
 	// 修改新的空白格位置
 	g.BlankPos = &Point{Y: y + dy, X: x + dx}
