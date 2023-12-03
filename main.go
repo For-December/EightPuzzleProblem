@@ -13,7 +13,7 @@ func main() {
 		{7, 6, 5},
 	}
 
-	BFS(start, target)
+	//BFS(start, target)
 
 	AStar(start, target)
 }

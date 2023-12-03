@@ -5,12 +5,20 @@ type Point struct {
 	X int // j
 }
 
+// Heuristic 启发函数的值
+type Heuristic struct {
+	H int
+	G int
+	F int
+}
+
 // Grid 八数码棋盘
 type Grid struct {
 	Pre      *Grid // 前驱节点
 	CurState [3][3]int
 	TarState [3][3]int
 	BlankPos *Point
+	Fn       *Heuristic
 }
 
 func (grid *Grid) displayPath() {

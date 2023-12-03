@@ -18,11 +18,11 @@ func BFS(start [3][3]int, target [3][3]int) bool {
 			curGrid.displayPath() // 到达目标则打印路径
 			return true
 		}
-		// 队头标记为已访问
+		// 当前节点（队头）标记为已访问
 		visited = append(visited, curGrid)
 
 		// 生成下一批待访问节点
-		nextGrids := next(curGrid)
+		nextGrids := curGrid.next()
 
 		// 仅计划访问从未访问过的那些节点
 		tidyNextGrids(nextGrids, visited, curGrid, q)
@@ -45,22 +45,4 @@ func tidyNextGrids(nextGrids []*Grid,
 			}
 		}
 	}
-}
-
-func next(grid *Grid) []*Grid {
-	grids := make([]*Grid, 0)
-	if up := grid.up(); up != nil {
-		grids = append(grids, up)
-	}
-	if left := grid.left(); left != nil {
-		grids = append(grids, left)
-	}
-	if down := grid.down(); down != nil {
-		grids = append(grids, down)
-	}
-	if right := grid.right(); right != nil {
-		grids = append(grids, right)
-	}
-	return grids
-
 }
