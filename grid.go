@@ -7,11 +7,10 @@ type Point struct {
 
 // Grid 八数码棋盘
 type Grid struct {
-	Pre        *Grid // 前驱节点
-	CurState   [3][3]int
-	TarState   [3][3]int
-	BlankPos   *Point
-	LastAction int // 通过什么操作得到，用于优化求解
+	Pre      *Grid // 前驱节点
+	CurState [3][3]int
+	TarState [3][3]int
+	BlankPos *Point
 }
 
 func (grid *Grid) displayPath() {
@@ -119,4 +118,22 @@ func (grid *Grid) right() *Grid {
 		return nil
 	}
 	return grid.move(0, 1)
+}
+
+func (grid *Grid) next() []*Grid {
+	grids := make([]*Grid, 0)
+	if up := grid.up(); up != nil {
+		grids = append(grids, up)
+	}
+	if left := grid.left(); left != nil {
+		grids = append(grids, left)
+	}
+	if down := grid.down(); down != nil {
+		grids = append(grids, down)
+	}
+	if right := grid.right(); right != nil {
+		grids = append(grids, right)
+	}
+	return grids
+
 }

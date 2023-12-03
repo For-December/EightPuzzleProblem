@@ -7,18 +7,24 @@ import (
 
 func BFS(start [3][3]int, target [3][3]int) bool {
 
-	visited := make([]*Grid, 0)
+	visited := make([]*Grid, 0) // 记录所有访问过的结点
 	startGrid := &Grid{Pre: nil, CurState: start, TarState: target, BlankPos: nil}
-	q := queue.New()
-	q.Enqueue(startGrid)
+
+	q := queue.New()     // 记录待访问节点
+	q.Enqueue(startGrid) // 先访问起始节点
 	for q.Len() > 0 {
-		curGrid := q.Dequeue().(*Grid)
+		curGrid := q.Dequeue().(*Grid) // 访问队头
 		if reflect.DeepEqual(curGrid.CurState, target) {
-			curGrid.displayPath()
+			curGrid.displayPath() // 到达目标则打印路径
 			return true
 		}
+		// 队头标记为已访问
 		visited = append(visited, curGrid)
+
+		// 生成下一批待访问节点
 		nextGrids := next(curGrid)
+
+		// 仅计划访问从未访问过的那些节点
 		tidyNextGrids(nextGrids, visited, curGrid, q)
 
 	}

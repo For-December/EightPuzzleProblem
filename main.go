@@ -14,4 +14,6 @@ func main() {
 	}
 
 	BFS(start, target)
+
+	AStar(start, target)
 }
