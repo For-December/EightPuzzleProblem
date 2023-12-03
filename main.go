@@ -13,7 +13,9 @@ func main() {
 		{7, 6, 5},
 	}
 
-	//BFS(start, target)
+	println("######## =BFS= ########")
+	BFS(start, target)
 
+	println("######## =AStar= ########")
 	AStar(start, target)
 }

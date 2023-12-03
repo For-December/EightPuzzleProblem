@@ -1,5 +1,7 @@
 package main
 
+import "reflect"
+
 type Point struct {
 	Y int // i
 	X int // j
@@ -144,4 +146,13 @@ func (grid *Grid) next() []*Grid {
 	}
 	return grids
 
+}
+
+func inGrids(elem *Grid, array []*Grid) int {
+	for i, grid := range array {
+		if reflect.DeepEqual(elem.CurState, grid.CurState) {
+			return i
+		}
+	}
+	return -1
 }

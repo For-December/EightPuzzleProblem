@@ -33,16 +33,14 @@ func BFS(start [3][3]int, target [3][3]int) bool {
 }
 
 func tidyNextGrids(nextGrids []*Grid,
-	visited []*Grid,
-	curGrid *Grid,
+	visited []*Grid, curGrid *Grid,
 	queue *queue.Queue) {
 	for _, nextGrid := range nextGrids {
-		for _, g := range visited {
-			nextGrid.Pre = curGrid
-			if !reflect.DeepEqual(g.CurState, nextGrid.CurState) {
-				// 该后继节点未被访问
-				queue.Enqueue(nextGrid)
-			}
+		nextGrid.Pre = curGrid
+		if index := inGrids(nextGrid, visited); index == -1 {
+			// 该后继节点未被访问，记录为待访问
+			queue.Enqueue(nextGrid)
+
 		}
 	}
 }

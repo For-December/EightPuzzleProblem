@@ -41,15 +41,6 @@ func AStar(start [3][3]int, target [3][3]int) bool {
 	return false
 }
 
-func inGrids(elem *Grid, array []*Grid) int {
-	for i, grid := range array {
-		if reflect.DeepEqual(elem.CurState, grid.CurState) {
-			return i
-		}
-	}
-	return -1
-}
-
 func tidyNext(nextGrids []*Grid, openTable []*Grid, closeTable []*Grid, curGrid *Grid) []*Grid {
 	for _, grid := range nextGrids {
 		grid.Pre = curGrid
